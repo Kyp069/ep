@@ -236,15 +236,17 @@ always @(posedge clock56) if(cepix) if(hReset) irq <= vint;
 //-------------------------------------------------------------------------------------------------
 
 assign hblank = hc <= 10;
-assign vblank = vmode == 3'b000; // vCount >= 304; //
+assign vblank = vmode == 3'b000;
 
 assign hsync = hc >= 1 && hc <= 4;
-//assign vsync = vblank && (lm <= rm); // vCount >= 304 && vCount <= 307; //
-
 always @(posedge clock56) if(cepix)
 	if(!vblank) vsync <= 1'b0;
 	else if(hc == rm) vsync <= 1'b0;
 	else if(hc == lm) vsync <= 1'b1;
+//assign vsync = vblank && (lm <= rm);
+
+//assign vblank = vCount >= 304;
+//assign vsync = vCount >= 304 && vCount <= 307;
 
 assign r = { color[0], color[3], color[6] };
 assign g = { color[1], color[4], color[7] };

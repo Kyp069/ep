@@ -1,0 +1,24 @@
+set_global_assignment -name SYSTEMVERILOG_FILE mister.sv
+set_global_assignment -name SDC_FILE mister.sdc
+
+set_global_assignment -name QIP_FILE rtl/pll56.qip
+set_global_assignment -name QIP_FILE rtl/pll32.qip
+set_global_assignment -name VERILOG_FILE rtl/sdram.v
+
+set_global_assignment -name VERILOG_FILE ../hdl/ep.v
+set_global_assignment -name VERILOG_FILE ../hdl/cpu.v
+set_global_assignment -name VERILOG_FILE ../hdl/rom.v
+set_global_assignment -name VERILOG_FILE ../hdl/ram.v
+set_global_assignment -name VERILOG_FILE ../hdl/spi.v
+set_global_assignment -name VERILOG_FILE ../hdl/usd.v
+set_global_assignment -name VERILOG_FILE ../hdl/dprf.v
+set_global_assignment -name VERILOG_FILE ../hdl/dprs.v
+set_global_assignment -name VERILOG_FILE ../hdl/audio.v
+set_global_assignment -name VERILOG_FILE ../hdl/mouse.v
+set_global_assignment -name VERILOG_FILE ../hdl/video.v
+set_global_assignment -name VERILOG_FILE ../hdl/memory.v
+set_global_assignment -name VERILOG_FILE ../hdl/keyboard.v
+set_global_assignment -name VERILOG_FILE ../hdl/interrupts.v
+set_global_assignment -name VERILOG_FILE ../hdl/mist/wd17xx.v
+
+set_global_assignment -name QIP_FILE ../hdl/T80/files.qip

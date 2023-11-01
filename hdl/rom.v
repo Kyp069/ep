@@ -19,7 +19,8 @@ module rom
 //-------------------------------------------------------------------------------------------------
 #
 (
-	parameter KB = 0
+	parameter KB = 0,
+	parameter FN = ""
 )
 (
 	input  wire                      clock,
@@ -27,12 +28,21 @@ module rom
 	output reg [                7:0] q
 );
 //-------------------------------------------------------------------------------------------------
-
+/*
 (* ram_init_file = "../rom/exos_exdos_isdos_file_sdext.mif" *) reg[7:0] mem[(KB*1024)-1:0];
 
 wire w = 1'b0;
 wire[7:0] d = 8'hFF;
 always @(posedge clock) if(w) begin q <= d; mem[a] <= d; end else q <= mem[a];
+*/
+/*
+reg[7:0] mem[(KB*1024)-1:0];
+initial if(FN != "") $readmemh(FN, mem);
+
+always @(posedge clock) q <= mem[a];
+*/
+(* ram_init_file = "../rom/exos_exdos_isdos_file_sdext.mif" *) reg[7:0] mem[(KB*1024)-1:0];
+always @(posedge clock) q <= mem[a];
 
 //-------------------------------------------------------------------------------------------------
 endmodule

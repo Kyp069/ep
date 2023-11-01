@@ -23,7 +23,7 @@ module ep
 
 	input  wire       power,
 	input  wire       reset,
-	input  wire       speed,
+	input  wire[ 1:0] speed,
 
 	output wire       cecpu,
 	output wire       cep1x,
@@ -99,7 +99,7 @@ always @(negedge clock56) if(power) begin
 	ne14M <= ~ce56[0] & ~ce56[1];
 end
 
-reg pe16M;
+reg ne16M, pe16M;
 reg ne8M0, pe8M0;
 reg ne4M0, pe4M0;
 reg pe1M0;
@@ -108,6 +108,7 @@ reg ne2K5;
 reg[6:0] ce32 = 1'd1;
 always @(negedge clock32) if(power) begin
 	ce32 <= ce32+1'd1;
+	ne16M <= ~ce32[0];
 	pe16M <=  ce32[0];
 	ne8M0 <= ~ce32[0] & ~ce32[1];
 	pe8M0 <= ~ce32[0] &  ce32[1];
@@ -117,8 +118,8 @@ always @(negedge clock32) if(power) begin
 	ne2K5 <= ~ce32[0] & ~ce32[1] & ~ce32[2] & ~ce32[3] & ~ce32[4] & ~ce32[5] & ~ce32[6];
 end
 
-wire necpu = speed ? ne8M0 : ne4M0;
-wire pecpu = speed ? pe8M0 : pe4M0;
+wire necpu = speed[1] ? ne16M : speed[0] ? ne8M0 : ne4M0;
+wire pecpu = speed[1] ? pe16M : speed[0] ? pe8M0 : pe4M0;
 
 assign cecpu = pecpu;
 assign cep1x = ne14M;
@@ -283,16 +284,16 @@ mouse mouse
 //-------------------------------------------------------------------------------------------------
 
 wire[2:0] joyQ
-	= kbdA == 4'h0 ? { ~mbtns[0],  ~mbtns[1], joy1[4] }
-	: kbdA == 4'h1 ? {      1'b0, ~mouseQ[0], joy1[3] }
-	: kbdA == 4'h2 ? {      1'b0, ~mouseQ[1], joy1[2] }
-	: kbdA == 4'h3 ? {      1'b0, ~mouseQ[2], joy1[1] }
-	: kbdA == 4'h4 ? {      1'b0, ~mouseQ[3], joy1[0] }
-	: kbdA == 4'h5 ? {      1'b0,    joy2[5], joy2[4] }
-	: kbdA == 4'h6 ? {      1'b0,       1'b0, joy2[3] }
-	: kbdA == 4'h7 ? {      1'b0,       1'b0, joy2[2] }
-	: kbdA == 4'h8 ? {      1'b0,       1'b0, joy2[1] }
-	: kbdA == 4'h9 ? {      1'b0,       1'b0, joy2[0] }
+	= kbdA == 4'h0 ? { ~mbtns[0] | joy1[6],  ~mbtns[1] | joy1[5], joy1[4] }
+	: kbdA == 4'h1 ? {                1'b0,           ~mouseQ[0], joy1[3] }
+	: kbdA == 4'h2 ? {                1'b0,           ~mouseQ[1], joy1[2] }
+	: kbdA == 4'h3 ? {                1'b0,           ~mouseQ[2], joy1[1] }
+	: kbdA == 4'h4 ? {                1'b0,           ~mouseQ[3], joy1[0] }
+	: kbdA == 4'h5 ? {             joy2[6],              joy2[5], joy2[4] }
+	: kbdA == 4'h6 ? {                1'b0,                 1'b0, joy2[3] }
+	: kbdA == 4'h7 ? {                1'b0,                 1'b0, joy2[2] }
+	: kbdA == 4'h8 ? {                1'b0,                 1'b0, joy2[1] }
+	: kbdA == 4'h9 ? {                1'b0,                 1'b0, joy2[0] }
 	: 1'b1;
 
 //-------------------------------------------------------------------------------------------------
@@ -316,7 +317,7 @@ usd usd
 (
 	.clock  (clock32),
 	.cecpu  (cecpu  ),
-	.cespi  (pe16M  ),
+	.cespi  (1'b1   ),
 	.reset  (reset  ),
 	.page   (       ),
 	.ioSD   (ioSD   ),
