@@ -105,11 +105,11 @@ substitute_mcu #(.sysclk_frequency(500)) controller
 	.rxd          (1'b0   ),
 	.txd          (       ),
 	.intercept    (       ),
-	.spi_srtc     (       ),
-	.buttons      (32'hFFFFFFFF),
+	.buttons      (8'hFF  ),
 	.c64_keys     (64'hFFFFFFFFFFFFFFFF)
 );
-//	.buttons      (8'hFF  ),
+//	.spi_srtc     (       ),
+//	.buttons      (32'hFFFFFFFF),
 
 //-------------------------------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ localparam confStr =
 {
 	"Enterprise;;",
 	"O24,Available RAM,1 MB,2 MB,3 MB,64 KB,128 KB,256 KB,512 KB;",
-	"O5,CPU Speed,4 MHz,8 MHz;",
+	"O56,CPU Speed,4 MHz,8 MHz, 16 MHz;",
 	"F,ROM,Load ROM;",
 	"S0,IMGDSK,Mount A:;",
 	"S1,VHD,Mount SD;",
@@ -142,7 +142,7 @@ wire[ 1:0] ps2ko;
 wire[63:0] status;
 wire       vga;
 
-user_io #(.STRLEN(154), .SD_IMAGES(2)) user_io
+user_io #(.STRLEN(163), .SD_IMAGES(2)) user_io
 (
 	.conf_str        (confStr),
 	.conf_addr       (       ),
@@ -360,14 +360,15 @@ scandoubler scandoubler
 	.isync   ({  vsync,  hsync }),
 	.irgb    ({ ro, go, bo }),
 	.oce     (cep2x  ),
+	.oblank  (       ),
 	.osync   (sync   ),
 	.orgb    (rgb    )
 );
 
 //-------------------------------------------------------------------------------------------------
 
-wire clock32, locked32;
-pll32 pll32(clock50, clock32, locked32);
+wire clock32, clock64, locked32;
+pll32 pll32(clock50, clock32, clock64, locked32);
 
 wire clock56, locked56;
 pll56 pll56(clock50, clock56, locked56);
@@ -401,7 +402,7 @@ always @(posedge clock32) if(strb) case(code) 8'h01: F9 <= make; endcase
 //-------------------------------------------------------------------------------------------------
 
 wire reset = power && F9 && ready && !iniIo && !romIo;
-wire speed = status[5];
+wire[1:0] speed = status[6:5];
 
 wire cecpu;
 wire cep1x;
@@ -543,7 +544,7 @@ wire[15:0] sdrQ;
 
 sdram sdram
 (
-	.clock  (clock32),
+	.clock  (clock64),
 	.reset  (power  ),
 	.ready  (ready  ),
 	.rfsh   (sdrRf  ),
@@ -564,7 +565,7 @@ sdram sdram
 
 assign memQ2 = rom || ram ? sdrQ[7:0] : 8'hFF;
 
-assign dramCk = clock32;
+assign dramCk = clock64;
 assign dramCe = 1'b1;
 
 //-------------------------------------------------------------------------------------------------
