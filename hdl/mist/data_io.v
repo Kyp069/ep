@@ -56,7 +56,7 @@ module data_io
 	input             hdd_dat_req,
 	output            hdd_cdda_wr,
 	output            hdd_status_wr,
-	output      [2:0] hdd_addr = 0,
+	output      [2:0] hdd_addr,
 	output            hdd_wr,
 
 	output     [15:0] hdd_data_out,

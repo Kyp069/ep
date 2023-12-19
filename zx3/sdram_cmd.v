@@ -24,7 +24,7 @@ begin
 	dramWe  <= 1'b1;
 	dramDQM <= 2'b11;
 	dramBA  <= 2'b00;
-	dramA   <= 13'd0;
+	dramA   <= 13'h0000;
 end
 endtask
 
@@ -36,7 +36,7 @@ begin
 	dramWe  <= 1'b1;
 	dramDQM <= 2'b11;
 	dramBA  <= 2'b00;
-	dramA   <= 13'd0;
+	dramA   <= 13'h0000;
 end
 endtask
 
@@ -48,7 +48,7 @@ begin
 	dramWe  <= 1'b1;
 	dramDQM <= 2'b11;
 	dramBA  <= 2'b00;
-	dramA   <= 13'd0;
+	dramA   <= 13'h0000;
 end
 endtask
 
@@ -62,7 +62,7 @@ begin
 	dramWe  <= 1'b0;
 	dramDQM <= 2'b11;
 	dramBA  <= ba;
-	dramA   <= { 2'b00, pca, 10'd0 };
+	dramA   <= { 2'b00, pca, 10'h000 };
 end
 endtask
 
@@ -96,7 +96,7 @@ endtask
 task WRITE;
 input[ 1:0] dqm;
 input[ 1:0] ba;
-input[ 8:0] a;
+input[ 9:0] a;
 input pca;
 begin
 	dramCs  <= 1'b0;
@@ -105,14 +105,14 @@ begin
 	dramWe  <= 1'b0;
 	dramDQM <= dqm;
 	dramBA  <= ba;
-	dramA   <= { 2'b00, pca, 1'b0, a };
+	dramA   <= { 2'b00, pca, a };
 end
 endtask
 
 task READ;
 input[ 1:0] dqm;
 input[ 1:0] ba;
-input[ 8:0] a;
+input[ 9:0] a;
 input pca;
 begin
 	dramCs  <= 1'b0;
@@ -121,7 +121,7 @@ begin
 	dramWe  <= 1'b1;
 	dramDQM <= dqm;
 	dramBA  <= ba;
-	dramA   <= { 2'b00, pca, 1'b0, a };
+	dramA   <= { 2'b00, pca, a };
 end
 endtask
 

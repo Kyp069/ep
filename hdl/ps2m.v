@@ -31,11 +31,11 @@ module ps2m
 parameter clk_freq = 56_750_320;         // system clock frequency in Hz
 parameter ps2_debounce_counter_size = 8; // set such that 2^size/clk_freq = 5us (size = 8 for 50MHz)
 
-reg       tx_ena = 0;			// transmit enable for ps2_transceiver
-reg[ 8:0] tx_cmd;				// command to transmit
-reg       tx_busy;				// ps2_transceiver busy signal
-reg[ 7:0] ps2_code;				// PS/2 code received from ps2_transceiver
-reg       ps2_code_new;			// new PS/2 code available flag from ps2_transceiver
+reg        tx_ena = 0;			// transmit enable for ps2_transceiver
+reg [ 8:0] tx_cmd;				// command to transmit
+wire       tx_busy;				// ps2_transceiver busy signal
+wire[ 7:0] ps2_code;				// PS/2 code received from ps2_transceiver
+wire       ps2_code_new;			// new PS/2 code available flag from ps2_transceiver
 
 ps2_transceiver #(clk_freq, ps2_debounce_counter_size) ps2_transceiver_0
 (

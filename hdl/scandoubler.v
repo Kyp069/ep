@@ -32,6 +32,7 @@ module scandoubler
 	input  wire[RGBW-1:0] irgb,
 
 	input  wire           oce,
+	output wire[     1:0] oblank,
 	output wire[     1:0] osync,
 	output wire[RGBW-1:0] orgb
 );
@@ -106,10 +107,9 @@ reg[RGBW-1:0] buffer[0:(2*2**HCW)-1]; // 2 lines of 2**HCW pixels of RGBW words
 always @(posedge clock) if(ice) buffer[{ line, iHCount }] <= irgb;
 always @(posedge clock) if(oce) brgb <= buffer[{ ~line, oHCount }];
 
-wire blank = enable ? iblank[1] || ohb  : |iblank;
-
+assign oblank = enable ? { iblank[1], ohb } : iblank;
 assign osync = enable ? { isync[1], ohs } : { 1'b1, ~^isync };
-assign orgb = blank ? 1'd0 : enable ? brgb : irgb;
+assign orgb = oblank ? 1'd0 : enable ? brgb : irgb;
 
 //-------------------------------------------------------------------------------------------------
 endmodule

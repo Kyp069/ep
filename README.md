@@ -1,1 +1,1 @@
-# ep
+Elan Enterprise FPGA implementation

@@ -111,7 +111,7 @@ parameter PS2BIDIR=0; // bi-directional PS2 interface
 parameter FEATURES=0; // requested features from the firmware
 parameter ARCHIE=0;
 
-localparam W = $clog2(SD_IMAGES);
+parameter W = $clog2(SD_IMAGES);
 
 reg [6:0]     sbuf;
 reg [7:0]     cmd;
@@ -132,7 +132,7 @@ assign conf_addr = byte_cnt;
 wire [7:0] core_type = ARCHIE ? 8'ha6 : ROM_DIRECT_UPLOAD ? 8'hb4 : 8'ha4;
 
 reg [W:0] drive_sel;
-always begin
+always begin : drive_sel_loop
 	integer i;
 	drive_sel = 0;
 	for(i = 0; i < SD_IMAGES; i = i + 1) if(sd_rd[i] | sd_wr[i]) drive_sel = i[W:0];
@@ -145,7 +145,7 @@ wire spi_sck = SPI_CLK;
 
 // ---------------- PS2 ---------------------
 reg ps2_clk;
-always @(posedge clk_sys) begin
+always @(posedge clk_sys) begin : ps2_clk_cnt
 	integer cnt;
 	cnt <= cnt + 1'd1;
 	if(cnt == PS2DIV) begin
@@ -153,6 +153,8 @@ always @(posedge clk_sys) begin
 		cnt <= 0;
 	end
 end
+
+reg [7:0] spi_byte_in;
 
 // keyboard
 reg        ps2_kbd_tx_strobe;
@@ -254,11 +256,11 @@ always@(negedge spi_sck or posedge SPI_SS_IO) begin : spi_byteout
 	end
 end
 
-generate if (ARCHIE) begin
 reg  [7:0] kbd_out_status;
 reg  [7:0] kbd_out_data_r;
 reg        kbd_out_data_available = 0;
 
+generate if (ARCHIE) begin
 always@(negedge spi_sck or posedge SPI_SS_IO) begin : archie_kbd_out
 	if(SPI_SS_IO == 1) begin
 		kbd_out_data_r <= 0;
@@ -340,7 +342,6 @@ end
 
 reg       spi_receiver_strobe_r = 0;
 reg       spi_transfer_end_r = 1;
-reg [7:0] spi_byte_in;
 
 // Read at spi_sck clock domain, assemble bytes for transferring to clk_sys
 always@(posedge spi_sck or posedge SPI_SS_IO) begin : spi_receiver

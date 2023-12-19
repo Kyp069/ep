@@ -198,7 +198,7 @@ assign AUDIO_MIX = 0;
 
 assign LED_DISK  = { 1'b0, ~sdvCs };
 assign LED_POWER = { 1'b0, 1'b0 };
-assign LED_USER  = ~reset;
+assign LED_USER  = tapeLed;
 
 assign BUTTONS = 0;
 
@@ -376,6 +376,15 @@ assign VGA_R  = { r, r, r[2:1] };
 assign VGA_G  = { g, g, g[2:1] };
 assign VGA_B  = { b, b, b, b   };
 
+wire tape, tapeLed;
+ltc2308_tape ltc2308_tape
+(
+  .clk    (clock32),
+  .ADC_BUS(ADC_BUS),
+  .dout   (tape   ),
+  .active (tapeLed)
+);
+
 //-------------------------------------------------------------------------------------------------
 
 wire clock32, sdramck, locked32;
@@ -445,8 +454,6 @@ wire vsync;
 wire[2:0] r;
 wire[2:0] g;
 wire[1:0] b;
-
-wire tape = 1'b0;
 
 wire[8:0] left;
 wire[8:0] right;

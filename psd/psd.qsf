@@ -1,0 +1,203 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2023  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+# Date created = 12:48:39  December 14, 2023
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		psd_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Intel recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV GX"
+set_global_assignment -name DEVICE EP4CGX150DF27I7
+set_global_assignment -name TOP_LEVEL_ENTITY psd
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 22.1STD.2
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:48:39  DECEMBER 14, 2023"
+set_global_assignment -name LAST_QUARTUS_VERSION "22.1std.2 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+
+set_global_assignment -name VERILOG_FILE psd.v
+set_global_assignment -name SDC_FILE psd.sdc
+set_global_assignment -name QIP_FILE ips/pll32.qip
+set_global_assignment -name QIP_FILE ips/pll56.qip
+
+set_global_assignment -name VERILOG_FILE ../hdl/ep.v
+set_global_assignment -name VERILOG_FILE ../hdl/cpu.v
+set_global_assignment -name VERILOG_FILE ../hdl/dpr.v
+set_global_assignment -name VERILOG_FILE ../hdl/dsg.v
+set_global_assignment -name VERILOG_FILE ../hdl/i2s.v
+set_global_assignment -name VERILOG_FILE ../hdl/ram.v
+set_global_assignment -name VERILOG_FILE ../hdl/rom.v
+set_global_assignment -name VERILOG_FILE ../hdl/spi.v
+set_global_assignment -name VERILOG_FILE ../hdl/usd.v
+set_global_assignment -name VERILOG_FILE ../hdl/ps2k.v
+set_global_assignment -name VERILOG_FILE ../hdl/ps2m.v
+set_global_assignment -name VERILOG_FILE ../hdl/audio.v
+set_global_assignment -name VERILOG_FILE ../hdl/mouse.v
+set_global_assignment -name VERILOG_FILE ../hdl/sdram.v
+set_global_assignment -name VERILOG_FILE ../hdl/video.v
+set_global_assignment -name VERILOG_FILE ../hdl/memory.v
+set_global_assignment -name VERILOG_FILE ../hdl/joystick.v
+set_global_assignment -name VERILOG_FILE ../hdl/keyboard.v
+set_global_assignment -name VERILOG_FILE ../hdl/interrupts.v
+set_global_assignment -name VERILOG_FILE ../hdl/scandoubler.v
+set_global_assignment -name VHDL_FILE ../hdl/ps2/debounce.vhd
+set_global_assignment -name VHDL_FILE ../hdl/ps2/ps2_transceiver.vhd
+set_global_assignment -name QIP_FILE ../hdl/T80/files.qip
+set_global_assignment -name QIP_FILE ../hdl/832/files.qip
+set_global_assignment -name QIP_FILE ../hdl/ctrl/files.qip
+set_global_assignment -name QIP_FILE ../hdl/mist/files.qip
+
+set_location_assignment PIN_B14 -to clock50
+
+set_location_assignment PIN_AC18 -to sync[1]
+set_location_assignment PIN_AD18 -to sync[0]
+
+set_location_assignment PIN_AF21 -to rgb[17]
+set_location_assignment PIN_AF23 -to rgb[16]
+set_location_assignment PIN_AE23 -to rgb[15]
+set_location_assignment PIN_AF20 -to rgb[14]
+set_location_assignment PIN_AF19 -to rgb[13]
+set_location_assignment PIN_AC19 -to rgb[12]
+set_location_assignment PIN_AE21 -to rgb[11]
+set_location_assignment PIN_AD21 -to rgb[10]
+set_location_assignment PIN_AC21 -to rgb[9]
+set_location_assignment PIN_AD20 -to rgb[8]
+set_location_assignment PIN_AE19 -to rgb[7]
+set_location_assignment PIN_AF18 -to rgb[6]
+set_location_assignment PIN_AF22 -to rgb[5]
+set_location_assignment PIN_AF25 -to rgb[4]
+set_location_assignment PIN_AF24 -to rgb[3]
+set_location_assignment PIN_AE22 -to rgb[2]
+set_location_assignment PIN_AD19 -to rgb[1]
+set_location_assignment PIN_AE18 -to rgb[0]
+
+set_location_assignment PIN_AC17 -to ear
+
+set_location_assignment PIN_AE17 -to i2s[2]
+set_location_assignment PIN_AD17 -to i2s[1]
+set_location_assignment PIN_AF17 -to i2s[0]
+
+set_location_assignment PIN_J23 -to dramCk
+set_location_assignment PIN_K24 -to dramCe
+set_location_assignment PIN_H26 -to dramCs
+set_location_assignment PIN_G25 -to dramWe
+set_location_assignment PIN_H25 -to dramRas
+set_location_assignment PIN_G26 -to dramCas
+
+set_location_assignment PIN_H24 -to dramDQM[1]
+set_location_assignment PIN_F26 -to dramDQM[0]
+
+set_location_assignment PIN_C24 -to dramDQ[15]
+set_location_assignment PIN_D24 -to dramDQ[14]
+set_location_assignment PIN_E24 -to dramDQ[13]
+set_location_assignment PIN_F23 -to dramDQ[12]
+set_location_assignment PIN_F24 -to dramDQ[11]
+set_location_assignment PIN_G22 -to dramDQ[10]
+set_location_assignment PIN_G24 -to dramDQ[9]
+set_location_assignment PIN_H23 -to dramDQ[8]
+set_location_assignment PIN_E26 -to dramDQ[7]
+set_location_assignment PIN_E25 -to dramDQ[6]
+set_location_assignment PIN_D26 -to dramDQ[5]
+set_location_assignment PIN_D25 -to dramDQ[4]
+set_location_assignment PIN_C26 -to dramDQ[3]
+set_location_assignment PIN_C25 -to dramDQ[2]
+set_location_assignment PIN_B26 -to dramDQ[1]
+set_location_assignment PIN_B25 -to dramDQ[0]
+
+set_location_assignment PIN_J26 -to dramBA[1]
+set_location_assignment PIN_J25 -to dramBA[0]
+
+set_location_assignment PIN_K23 -to dramA[12]
+set_location_assignment PIN_L24 -to dramA[11]
+set_location_assignment PIN_K26 -to dramA[10]
+set_location_assignment PIN_L23 -to dramA[9]
+set_location_assignment PIN_M24 -to dramA[8]
+set_location_assignment PIN_M22 -to dramA[7]
+set_location_assignment PIN_N24 -to dramA[6]
+set_location_assignment PIN_N23 -to dramA[5]
+set_location_assignment PIN_N22 -to dramA[4]
+set_location_assignment PIN_M26 -to dramA[3]
+set_location_assignment PIN_M25 -to dramA[2]
+set_location_assignment PIN_L26 -to dramA[1]
+set_location_assignment PIN_L25 -to dramA[0]
+
+set_location_assignment PIN_C21 -to spiCk
+set_location_assignment PIN_C10 -to spiSs2
+set_location_assignment PIN_B9 -to spiSs3
+set_location_assignment PIN_D6 -to spiSsIo
+set_location_assignment PIN_B22 -to spiMosi
+set_location_assignment PIN_B23 -to spiMiso
+
+set_location_assignment PIN_A23 -to led
+
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to led
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to stm
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to i2s*
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to rgb*
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dram*
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to sync*
+
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ear
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i2s*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rgb*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to dram*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sync*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clock50
+
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
+set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name ACTIVE_SERIAL_CLOCK FREQ_40MHZ
+set_global_assignment -name GENERATE_RBF_FILE ON
+set_global_assignment -name FORCE_CONFIGURATION_VCCIO ON
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

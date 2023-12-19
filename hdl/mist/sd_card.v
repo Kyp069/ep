@@ -145,7 +145,7 @@ wire sd_has_sdhc = conf[0];
 assign sd_sdhc = (allow_sdhc & sd_has_sdhc) | vhd; // report to user_io
 wire sdhc = allow_sdhc & (sd_has_sdhc | vhd);      // used internally
 
-always @(posedge clk_sys) begin
+always @(posedge clk_sys) begin : mounted_and_conf
     reg old_mounted;
 
     if (sd_buff_wr & sd_ack_conf) begin
@@ -221,7 +221,7 @@ wire [7:0] conf_byte = (!conf_buff_ptr[4] | !vhd) ? conf_byte_orig : // CID or C
                                              sdhc ? csd_sdhc[(15-conf_buff_ptr[3:0]) << 3 +:8] :
                                                       csd_sd[(15-conf_buff_ptr[3:0]) << 3 +:8];
 
-always@(posedge clk_sys) begin
+always@(posedge clk_sys) begin : spi_fsm
 
     reg       old_sd_sck;
     reg [5:0] ack;

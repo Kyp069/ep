@@ -1,7 +1,7 @@
 // A simple OSD implementation. Can be hooked up between a cores
 // VGA output and the physical VGA pins
 
-module osd (
+module osd24 (
 	// OSDs pixel clock, should be synchronous to cores pixel clock to
 	// avoid jitter.
 	input        clk_sys,
@@ -15,16 +15,16 @@ module osd (
 	input  [1:0] rotate, //[0] - rotate [1] - left or right
 
 	// VGA signals coming from core
-	input  [5:0] R_in,
-	input  [5:0] G_in,
-	input  [5:0] B_in,
+	input  [7:0] R_in,
+	input  [7:0] G_in,
+	input  [7:0] B_in,
 	input        HSync,
 	input        VSync,
 
 	// VGA signals going to video connector
-	output [5:0] R_out,
-	output [5:0] G_out,
-	output [5:0] B_out
+	output [7:0] R_out,
+	output [7:0] G_out,
+	output [7:0] B_out
 );
 
 parameter OSD_X_OFFSET = 11'd0;
@@ -209,8 +209,8 @@ always @(posedge clk_sys) begin
 	end
 end
 
-assign R_out = !osd_de ? R_in : {osd_pixel, osd_pixel, OSD_COLOR[2], R_in[5:3]};
-assign G_out = !osd_de ? G_in : {osd_pixel, osd_pixel, OSD_COLOR[1], G_in[5:3]};
-assign B_out = !osd_de ? B_in : {osd_pixel, osd_pixel, OSD_COLOR[0], B_in[5:3]};
+assign R_out = !osd_de ? R_in : {osd_pixel, osd_pixel, OSD_COLOR[2], R_in[7:3]};
+assign G_out = !osd_de ? G_in : {osd_pixel, osd_pixel, OSD_COLOR[1], G_in[7:3]};
+assign B_out = !osd_de ? B_in : {osd_pixel, osd_pixel, OSD_COLOR[0], B_in[7:3]};
 
 endmodule

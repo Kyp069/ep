@@ -28,15 +28,21 @@ module dpr
 	input  wire                      clock2,
 	input  wire[$clog2(KB*1024)-1:0] a2,
 	input  wire[                7:0] d2,
+//	output reg [                7:0] q2,
 	input  wire                      w2
 );
 //-------------------------------------------------------------------------------------------------
 
 reg[7:0] mem[(KB*1024)-1:0];
 
-wire w1 = 1'b0;
-wire[7:0] d1 = 8'hFF;
-always @(posedge clock1) if(w1) begin q1 <= d1; mem[a1] <= d1; end else q1 <= mem[a1];
+//wire w1 = 1'b0;
+//wire[7:0] d1 = 8'hFF;
+//always @(posedge clock1) if(w1) begin q1 <= d1; mem[a1] <= d1; end else q1 <= mem[a1];
+
+//always @(posedge clock1) q1 <= mem[a1];
+//always @(posedge clock2) if(w2) begin q2 <= d2; mem[a2] <= d2; end else q2 <= mem[a2];
+
+always @(posedge clock1) q1 <= mem[a1];
 always @(posedge clock2) if(w2) mem[a2] <= d2;
 
 //-------------------------------------------------------------------------------------------------

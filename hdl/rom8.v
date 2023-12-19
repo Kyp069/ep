@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------
-//  PS/2 keyboard
+//  Single port ROM
 //-------------------------------------------------------------------------------------------------
 //  This file is part of the Elan Enterprise FPGA implementation project.
 //  Copyright (C) 2023 Kyp069 <kyp069@gmail.com>
@@ -15,70 +15,24 @@
 //  You should have received a copy of the GNU General Public License along with this program;
 //  if not, If not, see <https://www.gnu.org/licenses/>.
 //-------------------------------------------------------------------------------------------------
-module ps2k
+module rom8
 //-------------------------------------------------------------------------------------------------
 #
 (
-	parameter DGW = 9
+	parameter KB = 128
 )
 (
-	input  wire      clock,
-
-	input  wire[1:0] ps2,
-
-	output reg       strb,
-	output reg       make,
-	output reg [7:0] code
+	input  wire                      clock,
+	input  wire[$clog2(KB*1024)-1:0] a,
+	input  wire[                7:0] d,
+	output reg [                7:0] q,
+	input  wire                      w
 );
 //-------------------------------------------------------------------------------------------------
 
-reg ps2c, ps2d, ps2e;
-reg[DGW-1:0] ps2f;
+(* ram_init_file = "../rom/exos_exdos_isdos_file_sdext.mif" *) reg[7:0] mem[0:(KB*1024)-1];
 
-always @(posedge clock) begin
-	ps2d <= ps2[1];
-	ps2e <= 1'b0;
-	ps2f <= { ps2[0], ps2f[DGW-1:1] };
-
-	if(&ps2f) ps2c <= 1'b1;
-	else if(~|ps2f) begin
-		ps2c <= 1'b0;
-		if(ps2c) ps2e <= 1'b1;
-	end
-end
-
-//-------------------------------------------------------------------------------------------------
-
-reg parity;
-reg[8:0] data;
-reg[3:0] count;
-
-always @(posedge clock) begin
-	strb <= 1'b0;
-
-	if(ps2e) begin
-		if(count == 4'd0) begin
-			parity <= 1'b0;
-			if(!ps2d) count <= count+4'd1;
-		end
-		else begin
-			if(count < 4'd10) begin
-				data <= { ps2d, data[8:1] };
-				count <= count+4'd1;
-				parity <= parity ^ ps2d;
-			end
-			else if(ps2d) begin
-				count <= 4'd0;
-				if(parity) begin
-					strb <= 1'b1;
-					code <= data[7:0];
-				end
-			end
-			else count <= 0;
-		end
-	end
-	if(strb) make <= code == 8'hF0;
-end
+always @(posedge clock) if(w) begin q <= d; mem[a] <= d; end else q <= mem[a];
 
 //-------------------------------------------------------------------------------------------------
 endmodule
