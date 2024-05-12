@@ -66,7 +66,6 @@ set_global_assignment -name VERILOG_FILE ../hdl/ep.v
 set_global_assignment -name VERILOG_FILE ../hdl/cpu.v
 set_global_assignment -name VERILOG_FILE ../hdl/dpr.v
 set_global_assignment -name VERILOG_FILE ../hdl/dsg.v
-set_global_assignment -name VERILOG_FILE ../hdl/i2s.v
 set_global_assignment -name VERILOG_FILE ../hdl/ram.v
 set_global_assignment -name VERILOG_FILE ../hdl/rom.v
 set_global_assignment -name VERILOG_FILE ../hdl/spi.v
@@ -94,24 +93,24 @@ set_location_assignment PIN_B14 -to clock50
 set_location_assignment PIN_AC18 -to sync[1]
 set_location_assignment PIN_AD18 -to sync[0]
 
-set_location_assignment PIN_AF21 -to rgb[17]
-set_location_assignment PIN_AF23 -to rgb[16]
-set_location_assignment PIN_AE23 -to rgb[15]
-set_location_assignment PIN_AF20 -to rgb[14]
-set_location_assignment PIN_AF19 -to rgb[13]
-set_location_assignment PIN_AC19 -to rgb[12]
-set_location_assignment PIN_AE21 -to rgb[11]
-set_location_assignment PIN_AD21 -to rgb[10]
-set_location_assignment PIN_AC21 -to rgb[9]
-set_location_assignment PIN_AD20 -to rgb[8]
-set_location_assignment PIN_AE19 -to rgb[7]
-set_location_assignment PIN_AF18 -to rgb[6]
-set_location_assignment PIN_AF22 -to rgb[5]
-set_location_assignment PIN_AF25 -to rgb[4]
-set_location_assignment PIN_AF24 -to rgb[3]
-set_location_assignment PIN_AE22 -to rgb[2]
-set_location_assignment PIN_AD19 -to rgb[1]
-set_location_assignment PIN_AE18 -to rgb[0]
+set_location_assignment PIN_AF21 -to vgaR[5]
+set_location_assignment PIN_AF23 -to vgaR[4]
+set_location_assignment PIN_AE23 -to vgaR[3]
+set_location_assignment PIN_AF20 -to vgaR[2]
+set_location_assignment PIN_AF19 -to vgaR[1]
+set_location_assignment PIN_AC19 -to vgaR[0]
+set_location_assignment PIN_AE21 -to vgaG[5]
+set_location_assignment PIN_AD21 -to vgaG[4]
+set_location_assignment PIN_AC21 -to vgaG[3]
+set_location_assignment PIN_AD20 -to vgaG[2]
+set_location_assignment PIN_AE19 -to vgaG[1]
+set_location_assignment PIN_AF18 -to vgaG[0]
+set_location_assignment PIN_AF22 -to vgaB[5]
+set_location_assignment PIN_AF25 -to vgaB[4]
+set_location_assignment PIN_AF24 -to vgaB[3]
+set_location_assignment PIN_AE22 -to vgaB[2]
+set_location_assignment PIN_AD19 -to vgaB[1]
+set_location_assignment PIN_AE18 -to vgaB[0]
 
 set_location_assignment PIN_AC17 -to ear
 
@@ -175,7 +174,7 @@ set_location_assignment PIN_A23 -to led
 #set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to led
 #set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to stm
 #set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to i2s*
-#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to rgb*
+#set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to vga*
 #set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to dram*
 #set_instance_assignment -name CURRENT_STRENGTH_NEW 8MA -to sync*
 
@@ -183,7 +182,7 @@ set_location_assignment PIN_A23 -to led
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to i2s*
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ps2*
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rgb*
+#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to vga*
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to dram*
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to sync*
 #set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clock50

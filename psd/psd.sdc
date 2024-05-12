@@ -16,7 +16,7 @@ set_false_path -from {spi*}
 set_false_path -from {dram*}
 
 set_false_path -to   {sync*}
-set_false_path -to   {rgb*}
+set_false_path -to   {vga*}
 set_false_path -to   {i2s*}
 set_false_path -to   {dram*}
 set_false_path -to   {spi*}

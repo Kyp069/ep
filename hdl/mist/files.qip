@@ -3,3 +3,6 @@ set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) d
 set_global_assignment -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) wd17xx.sv]
 set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) sd_card.v]
 set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) osd.v    ]
+set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) i2c_master.v]
+set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) i2s.v]
+set_global_assignment -name VERILOG_FILE       [file join $::quartus(qip_path) spdif.v]
